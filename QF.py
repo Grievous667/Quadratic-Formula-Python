@@ -14,10 +14,6 @@ def QF():
                 exit()
             elif a.upper() == "HELP":
                 print("Error: No Help Avaliable")
-            elif a.upper() == "YES":
-                print("Error: Affirmative")
-            elif a.upper() == "NO":
-                print("Error: Nose")
             elif a.upper() == "I LOVE MATHS":
                 print("Error: Incomprehensible")
             else:
