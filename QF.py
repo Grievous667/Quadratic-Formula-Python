@@ -1,80 +1,51 @@
 import math
 
 
-def QF():
-    print(" ")
-    print("Equation Form: ax^2 + bx + c = 0")
-    print('Input Constants a, b, and c to execute. Input "stop" to terminate program.')
-    print(" ")
-    while True:
-        try:
-            a = input("Constant 1 (a): ")
-            if a.upper() == "STOP":
-                print("Terminating Program...")
-                exit()
-            elif a.upper() == "HELP":
-                print("Error: No Help Avaliable")
-            elif a.upper() == "I LOVE MATHS":
-                print("Error: Incomprehensible")
-            else:
-                a = float(a)
-                break
-        except ValueError:
-            print("Error: Input Integer or Float")
-    while True:
-        try:
-            b = input("Constant 2 (b): ")
-            if b.upper() == "STOP":
-                print("Terminating Program...")
-                exit()
-            else:
-                b = float(b)
-                break
-        except ValueError:
-            print("Error: Input Integer or Float")
-    while True:
-        try:
-            c = input("Constant 3 (c): ")
-            if c.upper() == "STOP":
-                print("Terminating Program...")
-                exit()
-            else:
-                c = float(c)
-                break
-        except ValueError:
-            print("Error: Input Integer or Float")
+def typed_input(prompt:str='', force_type:type=str, error_message:str='', escape_code:str='exit'):
+    user_input = input(prompt)
+    try:
+        user_input = force_type(user_input)
+    except ValueError:
+        if user_input.upper() == escape_code.upper(): return None 
+        else: 
+            if error_message != '': print(error_message)
+            user_input = typed_input(prompt, force_type, error_message, escape_code)
+    finally: return user_input
 
+def get_solution_1(a,b,c):
+    try:
+        try: return str(-b + math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a)
+        except ValueError: return str("x = " + str(-b / (2*a)) + " + " + str((math.sqrt(abs((math.pow(b, 2)) - (4*a*c))) / (2*a))) + "i")
+    except: return 'None'
+
+def get_solution_2(a,b,c):
+    try:
+        try: return str(-b - math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a)
+        except ValueError: return str("x = " + str(-b / (2*a)) + " + " + str(-(math.sqrt(abs((math.pow(b, 2)) - (4*a*c))) / (2*a))) + "i")
+    except: return 'None'
+
+def qf(a, b, c):
     print(" ")
     print("Solutions:")
-    try:
-        print("x = " + str(-b) + " -+ " + "sqrt(" +
-              str(math.pow(b, 2) - (4*a*c)) + ") / " + str(2*a))
-    except:
-        pass
-    try:
-        try:
-            output_1 = (-b + math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a)
-            print("x = " + str(output_1))
-        except ValueError:
-            output_1 = (math.sqrt(abs((math.pow(b, 2)) - (4*a*c))) / (2*a))
-            print("x = " + str(-b / (2*a)) + " + " + str(output_1) + "i")
-    except:
-        output_1 = "None"
-        print(output_1)
+    try: general_solution = str("x = " + str(-b) + " -+ " + "sqrt(" + str(math.pow(b, 2) - (4*a*c)) + ") / " + str(2*a))
+    except: return 'No Solutions'
+    solution_1 = get_solution_1(a,b,c)
+    solution_2 = get_solution_2(a,b,c)
 
-    if output_1 != "None":
-        print("or")
+    print(general_solution)
+    print('>>>')
+    print(solution_1)
+    print('or')
+    print(solution_2)
 
-    try:
-        try:
-            output_2 = (-b - math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a)
-            print("x = " + str(output_2))
-        except ValueError:
-            output_2 = -(math.sqrt(abs((math.pow(b, 2)) - (4*a*c))) / (2*a))
-            print("x = " + str(-b / (2*a)) + " + " + str(output_2) + "i")
-    except:
-        output_2 = "None"
-        print(output_2)
+    if typed_input('Press enter to exit or input "1" to run again: ', str) == '1': run()
+    else: return general_solution, solution_1, solution_2
 
 
-QF()
+def run():
+    a = typed_input('Input: ', float, error_message='Error: Input must be Integer or Float')
+    b = typed_input('Input: ', float, error_message='Error: Input must be Integer or Float')
+    c = typed_input('Input: ', float, error_message='Error: Input must be Integer or Float')
+    qf(a,b,c)
+
+run()
