@@ -14,13 +14,13 @@ def typed_input(prompt:str='', force_type:type=str, error_message:str='', escape
 
 def get_solution_1(a,b,c):
     try:
-        try: return str(-b + math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a)
+        try: return str((-b + math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a))
         except ValueError: return str("x = " + str(-b / (2*a)) + " + " + str((math.sqrt(abs((math.pow(b, 2)) - (4*a*c))) / (2*a))) + "i")
     except: return 'None'
 
 def get_solution_2(a,b,c):
     try:
-        try: return str(-b - math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a)
+        try: return str((-b - math.sqrt((math.pow(b, 2)) - (4*a*c))) / (2*a))
         except ValueError: return str("x = " + str(-b / (2*a)) + " + " + str(-(math.sqrt(abs((math.pow(b, 2)) - (4*a*c))) / (2*a))) + "i")
     except: return 'None'
 
@@ -43,6 +43,7 @@ def qf(a, b, c):
 
 
 def run():
+    print("Equation Form: ax^2 + bx + c = 0")
     a = typed_input('Input: ', float, error_message='Error: Input must be Integer or Float')
     b = typed_input('Input: ', float, error_message='Error: Input must be Integer or Float')
     c = typed_input('Input: ', float, error_message='Error: Input must be Integer or Float')
